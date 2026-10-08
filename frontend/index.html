@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Tracker</title>
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+    <header>
+        <h1>Instagram Tracker</h1>
+        <p class="privacy-notice">Seus arquivos são processados na hora e não são salvos. Nenhuma conexão com o Instagram é feita.</p>
+    </header>
+
+    <main>
+        <section id="upload-section">
+            <div class="upload-grid">
+                <div class="upload-group">
+                    <h2>Seguidores</h2>
+                    <label>
+                        Anterior
+                        <input type="file" id="seguidores_antigo" accept=".csv">
+                    </label>
+                    <label>
+                        Atual
+                        <input type="file" id="seguidores_novo" accept=".csv">
+                    </label>
+                </div>
+                <div class="upload-group">
+                    <h2>Seguindo</h2>
+                    <label>
+                        Anterior
+                        <input type="file" id="seguindo_antigo" accept=".csv">
+                    </label>
+                    <label>
+                        Atual
+                        <input type="file" id="seguindo_novo" accept=".csv">
+                    </label>
+                </div>
+            </div>
+
+            <div class="actions">
+                <p id="analises-indicador">Análises que serão geradas: Nenhuma</p>
+                <button id="btn-comparar" disabled>Comparar</button>
+                <button id="btn-nova-analise">Nova análise</button>
+            </div>
+            
+            <div id="mensagens" aria-live="polite"></div>
+        </section>
+
+        <section id="results-section" style="display: none;">
+            <div id="abas-analise" class="tabs"></div>
+            <div id="resumo" class="resumo-panel"></div>
+            <div id="abas-grupo" class="tabs"></div>
+            
+            <div class="list-controls">
+                <input type="text" id="busca" placeholder="Buscar perfil...">
+                <button id="btn-exportar">Exportar CSV</button>
+            </div>
+            
+            <ul id="lista-perfis" class="perfis-list"></ul>
+        </section>
+    </main>
+
+    <script src="js/reduzir.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/exportar.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
