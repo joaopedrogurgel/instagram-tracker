@@ -1,5 +1,7 @@
 import pandas as pd
-from backend.app.services.normalizacao import normalizar_username, normalizar_dataframe
+
+from backend.app.services.normalizacao import normalizar_dataframe, normalizar_username
+
 
 def test_normalizar_username():
     assert normalizar_username("@Ana") == "ana"

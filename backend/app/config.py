@@ -1,5 +1,6 @@
 import os
 
+
 class Config:
     MAX_FILE_MB = int(os.getenv("MAX_FILE_MB", "25"))
     MAX_ROWS = int(os.getenv("MAX_ROWS", "500000"))

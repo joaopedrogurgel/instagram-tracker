@@ -1,5 +1,6 @@
 from backend.app.services.comparador import Perfil, comparar_par, cruzar
 
+
 def test_comparar_par_deixaram_de_seguir():
     antigo = {
         "1": Perfil("1", "a"),

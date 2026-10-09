@@ -1,10 +1,13 @@
 import pytest
-from backend.app.services.leitor_csv import ler_csv
+
 from backend.app.core.erros import (
-    ArquivoVazioError, TipoInvalidoError, 
-    CodificacaoInvalidaError, ColunaAusenteError, 
-    SemDadosValidosError
+    ArquivoVazioError,
+    ColunaAusenteError,
+    SemDadosValidosError,
+    TipoInvalidoError,
 )
+from backend.app.services.leitor_csv import ler_csv
+
 
 def test_ler_csv_vazio():
     with pytest.raises(ArquivoVazioError):

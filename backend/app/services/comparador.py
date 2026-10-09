@@ -1,13 +1,13 @@
 from dataclasses import dataclass
-from typing import Optional
+
 
 @dataclass(frozen=True)
 class Perfil:
-    user_id: Optional[str]
+    user_id: str | None
     username: str
-    nome: Optional[str] = None
-    privado: Optional[bool] = None
-    verificado: Optional[bool] = None
+    nome: str | None = None
+    privado: bool | None = None
+    verificado: bool | None = None
 
 Mapa = dict[str, Perfil]
 

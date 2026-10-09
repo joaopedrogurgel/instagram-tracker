@@ -1,17 +1,16 @@
 from fastapi import FastAPI, Request, status
+from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
-from fastapi.exceptions import RequestValidationError
 from fastapi.staticfiles import StaticFiles
+from slowapi import _rate_limit_exceeded_handler
+from slowapi.errors import RateLimitExceeded
 
 from backend.app.api import rotas_comparar, rotas_saude
-from backend.app.core.limitador import limiter
-from slowapi.errors import RateLimitExceeded
-from slowapi import _rate_limit_exceeded_handler
-
-from backend.app.core.handlers import domain_error_handler, generic_exception_handler
-from backend.app.core.erros import DomainError
 from backend.app.config import config
+from backend.app.core.erros import DomainError
+from backend.app.core.handlers import domain_error_handler, generic_exception_handler
+from backend.app.core.limitador import limiter
 
 app = FastAPI(title="Instagram Tracker API", version=config.API_VERSION)
 

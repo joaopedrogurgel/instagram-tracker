@@ -1,17 +1,19 @@
 import io
+
 import pandas as pd
-from typing import Tuple
+
 from backend.app.core.erros import (
     ArquivoVazioError,
-    TipoInvalidoError,
     CodificacaoInvalidaError,
     ColunaAusenteError,
-    SemDadosValidosError
+    SemDadosValidosError,
+    TipoInvalidoError,
 )
-from backend.app.services.normalizacao import normalizar_dataframe
 from backend.app.services.comparador import Mapa
+from backend.app.services.normalizacao import normalizar_dataframe
 
-def ler_csv(campo: str, nome_arquivo: str, conteudo: bytes, usar_user_id: bool = True) -> Tuple[Mapa, int]:
+
+def ler_csv(campo: str, nome_arquivo: str, conteudo: bytes, usar_user_id: bool = True) -> tuple[Mapa, int]:
     if not conteudo:
         raise ArquivoVazioError(campo)
         

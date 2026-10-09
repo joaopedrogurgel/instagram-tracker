@@ -1,13 +1,14 @@
-from pydantic import BaseModel, HttpUrl
-from typing import List, Optional, Dict, Any
+
+from pydantic import BaseModel
+
 
 class PerfilOut(BaseModel):
-    user_id: Optional[str]
+    user_id: str | None
     username: str
-    nome: Optional[str]
-    privado: Optional[bool]
-    verificado: Optional[bool]
-    url: Optional[str]
+    nome: str | None
+    privado: bool | None
+    verificado: bool | None
+    url: str | None
 
 class RenomeadoOut(BaseModel):
     username_antigo: str
@@ -17,27 +18,27 @@ class RenomeadoOut(BaseModel):
 class ResumoAnalise(BaseModel):
     total_antigo: int
     total_novo: int
-    deixaram_de_seguir: Optional[int] = None
-    novos_seguidores: Optional[int] = None
-    deixei_de_seguir: Optional[int] = None
-    passei_a_seguir: Optional[int] = None
+    deixaram_de_seguir: int | None = None
+    novos_seguidores: int | None = None
+    deixei_de_seguir: int | None = None
+    passei_a_seguir: int | None = None
     mantidos: int
     renomeados: int
     houve_mudanca: bool
 
 class AnaliseSeguidores(BaseModel):
     resumo: ResumoAnalise
-    deixaram_de_seguir: List[PerfilOut]
-    novos_seguidores: List[PerfilOut]
-    mantidos: List[PerfilOut]
-    renomeados: List[RenomeadoOut]
+    deixaram_de_seguir: list[PerfilOut]
+    novos_seguidores: list[PerfilOut]
+    mantidos: list[PerfilOut]
+    renomeados: list[RenomeadoOut]
 
 class AnaliseSeguindo(BaseModel):
     resumo: ResumoAnalise
-    deixei_de_seguir: List[PerfilOut]
-    passei_a_seguir: List[PerfilOut]
-    mantidos: List[PerfilOut]
-    renomeados: List[RenomeadoOut]
+    deixei_de_seguir: list[PerfilOut]
+    passei_a_seguir: list[PerfilOut]
+    mantidos: list[PerfilOut]
+    renomeados: list[RenomeadoOut]
 
 class ResumoCruzada(BaseModel):
     total_seguidores: int
@@ -48,20 +49,20 @@ class ResumoCruzada(BaseModel):
 
 class AnaliseCruzada(BaseModel):
     resumo: ResumoCruzada
-    mutuos: List[PerfilOut]
-    nao_retribuem: List[PerfilOut]
-    fas: List[PerfilOut]
+    mutuos: list[PerfilOut]
+    nao_retribuem: list[PerfilOut]
+    fas: list[PerfilOut]
 
 class Metadados(BaseModel):
     tempo_processamento_ms: int
     chave_identificacao: str
-    linhas_descartadas: Dict[str, int]
-    arquivos_ignorados: List[str]
+    linhas_descartadas: dict[str, int]
+    arquivos_ignorados: list[str]
     versao_api: str
 
 class RespostaComparacao(BaseModel):
-    analises_executadas: List[str]
-    seguidores: Optional[AnaliseSeguidores]
-    seguindo: Optional[AnaliseSeguindo]
-    cruzada: Optional[AnaliseCruzada]
+    analises_executadas: list[str]
+    seguidores: AnaliseSeguidores | None
+    seguindo: AnaliseSeguindo | None
+    cruzada: AnaliseCruzada | None
     metadados: Metadados

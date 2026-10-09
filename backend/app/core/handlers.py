@@ -1,6 +1,8 @@
 from fastapi import Request, status
 from fastapi.responses import JSONResponse
+
 from backend.app.core.erros import DomainError
+
 
 async def domain_error_handler(request: Request, exc: DomainError):
     status_code = status.HTTP_400_BAD_REQUEST

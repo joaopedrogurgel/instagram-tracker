@@ -1,16 +1,23 @@
 import time
-from typing import Optional, Dict
-from fastapi import APIRouter, UploadFile, File, Request
-from backend.app.schemas.resposta import (
-    RespostaComparacao, AnaliseSeguidores, AnaliseSeguindo, 
-    AnaliseCruzada, ResumoAnalise, ResumoCruzada, Metadados,
-    PerfilOut, RenomeadoOut
-)
-from backend.app.services.leitor_csv import ler_csv
-from backend.app.services.comparador import comparar_par, cruzar
-from backend.app.core.erros import DomainError
+
+from fastapi import APIRouter, File, Request, UploadFile
+
 from backend.app.config import config
+from backend.app.core.erros import DomainError
 from backend.app.core.limitador import limiter
+from backend.app.schemas.resposta import (
+    AnaliseCruzada,
+    AnaliseSeguidores,
+    AnaliseSeguindo,
+    Metadados,
+    PerfilOut,
+    RenomeadoOut,
+    RespostaComparacao,
+    ResumoAnalise,
+    ResumoCruzada,
+)
+from backend.app.services.comparador import comparar_par, cruzar
+from backend.app.services.leitor_csv import ler_csv
 
 router = APIRouter()
 
@@ -37,10 +44,10 @@ def formatar_perfil(p) -> PerfilOut:
 @limiter.limit(config.RATE_LIMIT)
 async def comparar(
     request: Request,
-    seguidores_antigo: Optional[UploadFile] = File(None),
-    seguidores_novo: Optional[UploadFile] = File(None),
-    seguindo_antigo: Optional[UploadFile] = File(None),
-    seguindo_novo: Optional[UploadFile] = File(None)
+    seguidores_antigo: UploadFile | None = File(None),
+    seguidores_novo: UploadFile | None = File(None),
+    seguindo_antigo: UploadFile | None = File(None),
+    seguindo_novo: UploadFile | None = File(None)
 ):
     start_time = time.time()
     

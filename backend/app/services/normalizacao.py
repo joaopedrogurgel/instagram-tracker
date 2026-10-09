@@ -1,13 +1,15 @@
+
 import pandas as pd
-from typing import Tuple, Dict
-from backend.app.services.comparador import Perfil, Mapa
+
+from backend.app.services.comparador import Mapa, Perfil
+
 
 def normalizar_username(username: str) -> str:
     if pd.isna(username) or not isinstance(username, str):
         return ""
     return username.strip().lower().lstrip('@')
 
-def normalizar_dataframe(df: pd.DataFrame, usar_user_id: bool) -> Tuple[Mapa, int]:
+def normalizar_dataframe(df: pd.DataFrame, usar_user_id: bool) -> tuple[Mapa, int]:
     """
     Normaliza um DataFrame para um Mapa (chave -> Perfil).
     Retorna a tupla (Mapa, linhas_descartadas).

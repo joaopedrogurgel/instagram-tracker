@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 
+
 class ErroDetalhe(BaseModel):
     codigo: str
     mensagem: str
