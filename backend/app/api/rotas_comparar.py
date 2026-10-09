@@ -79,7 +79,7 @@ async def comparar(
         if len(conteudo) > max_bytes:
             raise ArquivoMuitoGrandeError(campo)
             
-        mapa, descartadas = ler_csv(campo, file.filename, conteudo, usar_user_id=True)
+        mapa, descartadas = ler_csv(campo, file.filename or "", conteudo, usar_user_id=True)
         mapas[campo] = mapa
         linhas_descartadas[campo] = descartadas
         
@@ -102,7 +102,7 @@ async def comparar(
         for campo, file in arquivos_presentes.items():
             await file.seek(0)
             conteudo = await file.read()
-            mapa, descartadas = ler_csv(campo, file.filename, conteudo, usar_user_id=False)
+            mapa, descartadas = ler_csv(campo, file.filename or "", conteudo, usar_user_id=False)
             mapas[campo] = mapa
             linhas_descartadas[campo] = descartadas
 

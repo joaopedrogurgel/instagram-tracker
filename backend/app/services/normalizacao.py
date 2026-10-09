@@ -1,8 +1,9 @@
 
+from typing import Any
+
 import pandas as pd
 
 from backend.app.services.comparador import Mapa, Perfil
-from typing import Any
 
 
 def normalizar_username(username: str) -> str:

@@ -2,7 +2,7 @@
 from pydantic import BaseModel
 
 
-class PerfilOut(BaseModel):  # type: ignore[misc]
+class PerfilOut(BaseModel):
     user_id: str | None
     username: str
     nome: str | None
@@ -11,13 +11,13 @@ class PerfilOut(BaseModel):  # type: ignore[misc]
     url: str | None
 
 
-class RenomeadoOut(BaseModel):  # type: ignore[misc]
+class RenomeadoOut(BaseModel):
     username_antigo: str
     username_novo: str
     perfil: PerfilOut
 
 
-class ResumoAnalise(BaseModel):  # type: ignore[misc]
+class ResumoAnalise(BaseModel):
     total_antigo: int
     total_novo: int
     deixaram_de_seguir: int | None = None
@@ -29,7 +29,7 @@ class ResumoAnalise(BaseModel):  # type: ignore[misc]
     houve_mudanca: bool
 
 
-class AnaliseSeguidores(BaseModel):  # type: ignore[misc]
+class AnaliseSeguidores(BaseModel):
     resumo: ResumoAnalise
     deixaram_de_seguir: list[PerfilOut]
     novos_seguidores: list[PerfilOut]
@@ -37,7 +37,7 @@ class AnaliseSeguidores(BaseModel):  # type: ignore[misc]
     renomeados: list[RenomeadoOut]
 
 
-class AnaliseSeguindo(BaseModel):  # type: ignore[misc]
+class AnaliseSeguindo(BaseModel):
     resumo: ResumoAnalise
     deixei_de_seguir: list[PerfilOut]
     passei_a_seguir: list[PerfilOut]
@@ -45,7 +45,7 @@ class AnaliseSeguindo(BaseModel):  # type: ignore[misc]
     renomeados: list[RenomeadoOut]
 
 
-class ResumoCruzada(BaseModel):  # type: ignore[misc]
+class ResumoCruzada(BaseModel):
     total_seguidores: int
     total_seguindo: int
     mutuos: int
@@ -53,14 +53,14 @@ class ResumoCruzada(BaseModel):  # type: ignore[misc]
     fas: int
 
 
-class AnaliseCruzada(BaseModel):  # type: ignore[misc]
+class AnaliseCruzada(BaseModel):
     resumo: ResumoCruzada
     mutuos: list[PerfilOut]
     nao_retribuem: list[PerfilOut]
     fas: list[PerfilOut]
 
 
-class Metadados(BaseModel):  # type: ignore[misc]
+class Metadados(BaseModel):
     tempo_processamento_ms: int
     chave_identificacao: str
     linhas_descartadas: dict[str, int]
@@ -68,7 +68,7 @@ class Metadados(BaseModel):  # type: ignore[misc]
     versao_api: str
 
 
-class RespostaComparacao(BaseModel):  # type: ignore[misc]
+class RespostaComparacao(BaseModel):
     analises_executadas: list[str]
     seguidores: AnaliseSeguidores | None
     seguindo: AnaliseSeguindo | None
