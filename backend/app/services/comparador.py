@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 from dataclasses import dataclass
+from typing import Any
 
 
 @dataclass(frozen=True)
@@ -9,12 +12,15 @@ class Perfil:
     privado: bool | None = None
     verificado: bool | None = None
 
+
 Mapa = dict[str, Perfil]
+
 
 def _ordenar(mapa: Mapa, chaves: set[str]) -> list[Perfil]:
     return sorted((mapa[k] for k in chaves), key=lambda p: p.username)
 
-def comparar_par(antigo: Mapa, novo: Mapa) -> dict[str, list]:
+
+def comparar_par(antigo: Mapa, novo: Mapa) -> dict[str, list[Any]]:
     ka, kn = antigo.keys(), novo.keys()
     comuns = ka & kn
     return {
@@ -28,7 +34,8 @@ def comparar_par(antigo: Mapa, novo: Mapa) -> dict[str, list]:
         ],
     }
 
-def cruzar(seguidores: Mapa, seguindo: Mapa) -> dict[str, list]:
+
+def cruzar(seguidores: Mapa, seguindo: Mapa) -> dict[str, list[Perfil]]:
     ks, kg = seguidores.keys(), seguindo.keys()
     return {
         "mutuos": _ordenar(seguidores, ks & kg),

@@ -16,20 +16,22 @@ from backend.app.schemas.resposta import (
     ResumoAnalise,
     ResumoCruzada,
 )
-from backend.app.services.comparador import comparar_par, cruzar
+from backend.app.services.comparador import Mapa, Perfil, comparar_par, cruzar
 from backend.app.services.leitor_csv import ler_csv
 
 router = APIRouter()
 
+
 class CombinacaoInvalidaError(DomainError):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__("COMBINACAO_INVALIDA", "Envie arquivos que formem uma comparação: dois de seguidores, dois de seguindo, ou um de cada.")
 
+
 class ArquivoMuitoGrandeError(DomainError):
-    def __init__(self, campo: str):
+    def __init__(self, campo: str) -> None:
         super().__init__("ARQUIVO_MUITO_GRANDE", f"O arquivo '{campo}' ultrapassa o limite de {config.MAX_FILE_MB} MB.", {"campo": campo})
 
-def formatar_perfil(p) -> PerfilOut:
+def formatar_perfil(p: "Perfil") -> PerfilOut:
     url = f"https://www.instagram.com/{p.username}" if p.username else None
     return PerfilOut(
         user_id=p.user_id,
@@ -144,26 +146,26 @@ async def comparar(
         
     if has_seguindo:
         analises_executadas.append("seguindo")
-        p = mapas["seguindo_antigo"]
+        antigo_seg: Mapa = mapas["seguindo_antigo"]
         s = mapas["seguindo_novo"]
-        res = comparar_par(p, s)
-        
+        res = comparar_par(antigo_seg, s)
+
         deixei = [formatar_perfil(pf) for pf in res["sairam"]]
         passei = [formatar_perfil(pf) for pf in res["entraram"]]
         mantidos = [formatar_perfil(pf) for pf in res["mantidos"]]
         renomeados = [
             RenomeadoOut(
-                username_antigo=r["username_antigo"], 
-                username_novo=r["username_novo"], 
+                username_antigo=r["username_antigo"],
+                username_novo=r["username_novo"],
                 perfil=formatar_perfil(r["perfil"])
             ) for r in res["renomeados"]
         ]
-        
+
         houve_mudanca = len(deixei) > 0 or len(passei) > 0 or len(renomeados) > 0
-        
+
         seguindo_res = AnaliseSeguindo(
             resumo=ResumoAnalise(
-                total_antigo=len(p), total_novo=len(s),
+                total_antigo=len(antigo_seg), total_novo=len(s),
                 deixei_de_seguir=len(deixei), passei_a_seguir=len(passei),
                 mantidos=len(mantidos), renomeados=len(renomeados), houve_mudanca=houve_mudanca
             ),
@@ -172,6 +174,7 @@ async def comparar(
             mantidos=mantidos,
             renomeados=renomeados
         )
+
         
     if has_cruzada:
         analises_executadas.append("cruzada")

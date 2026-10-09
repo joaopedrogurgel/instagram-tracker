@@ -2,7 +2,7 @@
 from pydantic import BaseModel
 
 
-class PerfilOut(BaseModel):
+class PerfilOut(BaseModel):  # type: ignore[misc]
     user_id: str | None
     username: str
     nome: str | None
@@ -10,12 +10,14 @@ class PerfilOut(BaseModel):
     verificado: bool | None
     url: str | None
 
-class RenomeadoOut(BaseModel):
+
+class RenomeadoOut(BaseModel):  # type: ignore[misc]
     username_antigo: str
     username_novo: str
     perfil: PerfilOut
 
-class ResumoAnalise(BaseModel):
+
+class ResumoAnalise(BaseModel):  # type: ignore[misc]
     total_antigo: int
     total_novo: int
     deixaram_de_seguir: int | None = None
@@ -26,41 +28,47 @@ class ResumoAnalise(BaseModel):
     renomeados: int
     houve_mudanca: bool
 
-class AnaliseSeguidores(BaseModel):
+
+class AnaliseSeguidores(BaseModel):  # type: ignore[misc]
     resumo: ResumoAnalise
     deixaram_de_seguir: list[PerfilOut]
     novos_seguidores: list[PerfilOut]
     mantidos: list[PerfilOut]
     renomeados: list[RenomeadoOut]
 
-class AnaliseSeguindo(BaseModel):
+
+class AnaliseSeguindo(BaseModel):  # type: ignore[misc]
     resumo: ResumoAnalise
     deixei_de_seguir: list[PerfilOut]
     passei_a_seguir: list[PerfilOut]
     mantidos: list[PerfilOut]
     renomeados: list[RenomeadoOut]
 
-class ResumoCruzada(BaseModel):
+
+class ResumoCruzada(BaseModel):  # type: ignore[misc]
     total_seguidores: int
     total_seguindo: int
     mutuos: int
     nao_retribuem: int
     fas: int
 
-class AnaliseCruzada(BaseModel):
+
+class AnaliseCruzada(BaseModel):  # type: ignore[misc]
     resumo: ResumoCruzada
     mutuos: list[PerfilOut]
     nao_retribuem: list[PerfilOut]
     fas: list[PerfilOut]
 
-class Metadados(BaseModel):
+
+class Metadados(BaseModel):  # type: ignore[misc]
     tempo_processamento_ms: int
     chave_identificacao: str
     linhas_descartadas: dict[str, int]
     arquivos_ignorados: list[str]
     versao_api: str
 
-class RespostaComparacao(BaseModel):
+
+class RespostaComparacao(BaseModel):  # type: ignore[misc]
     analises_executadas: list[str]
     seguidores: AnaliseSeguidores | None
     seguindo: AnaliseSeguindo | None

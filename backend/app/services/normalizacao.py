@@ -2,6 +2,7 @@
 import pandas as pd
 
 from backend.app.services.comparador import Mapa, Perfil
+from typing import Any
 
 
 def normalizar_username(username: str) -> str:
@@ -48,7 +49,7 @@ def normalizar_dataframe(df: pd.DataFrame, usar_user_id: bool) -> tuple[Mapa, in
             
         nome = str(row['fullname']).strip() if has_fullname and pd.notna(row['fullname']) else None
         
-        def parse_bool(val: any) -> bool | None:
+        def parse_bool(val: Any) -> bool | None:
             if pd.isna(val):
                 return None
             val_str = str(val).strip().lower()
